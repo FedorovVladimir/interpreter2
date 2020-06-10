@@ -5,7 +5,6 @@
 #include "Scanner.h"
 
 #include <utility>
-#include <cstring>
 #include <cmath>
 
 const string oneSymbols = ",;(){}*%/\n";
@@ -23,8 +22,8 @@ const string s3 = "==";
 const TypeLexeme l3[] = {LARGER_EQUAL, LESS_EQUAL};
 
 const int countWords = 7;
-const string stringWord[] = {"if", "else", "void", "int", "double", "main", "struct"};
-const TypeLexeme lexemeWord[] = {IF, ELSE, VOID, INT, DOUBLE, MAIN, STRUCT};
+const string stringWord[] = {"if", "else", "void", "int", "main", "struct"};
+const TypeLexeme lexemeWord[] = {IF, ELSE, VOID, INT, MAIN, STRUCT};
 
 Scanner::Scanner(string text) {
     this->text = move(text);
@@ -152,13 +151,7 @@ Node *Scanner::next() {
         s += text[currentPosition++];
     }
 
-    char *value = new char[s.length() + 1];
-    strcpy(value, s.c_str());
-    char *str = strtok(value, "Ee");
-    double valueDouble = atof(str);
-    str = strtok(nullptr, "Ee");
-    valueDouble *= pow(10, atoi(str));
-    return new Node(CONST_DOUBLE, to_string(valueDouble));
+    return new Node(CONST_DOUBLE, s);
 }
 
 Node *Scanner::getCurrentNode() {

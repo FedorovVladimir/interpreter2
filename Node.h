@@ -5,7 +5,7 @@
 #ifndef INTERPRETER_NODE_H
 #define INTERPRETER_NODE_H
 
-#include "string"
+#include <string>
 #include "TypeLexeme.h"
 
 using namespace std;
@@ -18,11 +18,11 @@ public:
 
     string toString();
 
-    Node(TypeLexeme typeLexeme, const string& text, const string& name = "");
+    Node(TypeLexeme typeLexeme, const string &text, const string &name = "");
 
 private:
     TypeLexeme typeLexeme;
-    char *name{};
+    string name;
     union {
         double valueDouble;
         int valueInteger;

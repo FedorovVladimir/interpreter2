@@ -12,8 +12,8 @@ enum TypeLexeme {
     ELSE,
     VOID,
     INT,
-    DOUBLE,
     MAIN,
+    DOUBLE,
     STRUCT,
 
     // Идентификатор

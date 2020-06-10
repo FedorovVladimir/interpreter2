@@ -3,13 +3,14 @@
 //
 
 #include <sstream>
-#include <cstring>
 #include "Node.h"
 
 using namespace std;
 
 Node::Node(TypeLexeme typeLexeme) {
     this->typeLexeme = typeLexeme;
+    this->valueInteger = 0;
+    this->valueDouble = 0;
 }
 
 TypeLexeme Node::getTypeLexem() {
@@ -29,10 +30,10 @@ string Node::toString() {
             s << "VOID";
             break;
         case INT:
-            s << "INT" << " " << name << " " << valueInteger;
+            s << "INT";
             break;
         case DOUBLE:
-            s << "DOUBLE" << " " << name << " " << valueDouble;
+            s << "DOUBLE";
             break;
         case MAIN:
             s << "MAIN";
@@ -47,7 +48,7 @@ string Node::toString() {
             s << "CONST_INT" << " " << valueInteger;
             break;
         case CONST_DOUBLE:
-            s << "CONST_FLOAT" << " " << valueDouble;
+            s << "CONST_DOUBLE" << " " << valueDouble;
             break;
         case PLUS:
             s << "PLUS";
@@ -150,17 +151,13 @@ Node::Node(TypeLexeme typeLexeme, const string &text, const string &name) {
     this->typeLexeme = typeLexeme;
     this->valueDouble = 0;
 
-    char* value = new char[text.length() + 1];
-    strcpy(value, text.c_str());
-
-    this->name = new char[name.length() + 1];
-    strcpy(this->name, name.c_str());
-
     if (typeLexeme == CONST_INT || typeLexeme == INT) {
-        valueInteger = atoi(text.c_str());
+        valueInteger = stoi(text);
     }
 
+    this->name = name;
+
     if (typeLexeme == CONST_DOUBLE || typeLexeme == DOUBLE) {
-        valueDouble = atof(text.c_str());
+        valueDouble = stof(text);
     }
 }

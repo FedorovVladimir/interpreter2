@@ -22,6 +22,8 @@ string readCodeFromFile(const string &filePath) {
         fin.getline(buffer, 80);
         text.append(buffer).append("\n");
     }
+
+    // закрываем файл
     fin.close();
 
     return text;

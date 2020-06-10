@@ -1,7 +1,7 @@
 struct name { // структура
     int a;
     int b;
-    double c;
+    double c = 1.602e-10;
 };
 
 int main() {
