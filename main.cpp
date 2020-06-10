@@ -37,6 +37,11 @@ int main() {
     // создаем сканер
     auto *scanner = new Scanner(text);
 
+//    while (!scanner->eof()) {
+//        cout << scanner->getCurrentNode()->toString() << endl;
+//        scanner->next();
+//    }
+
     // создаем лексер
     auto *lexer = new Lexer(scanner);
     lexer->start();

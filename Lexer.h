@@ -27,11 +27,17 @@ private:
 
     static void logInfo(const string &text);
 
-    static void variableOpisanie();
+    void variableOpisanie();
 
-    static void mainFunctionOpisanie();
+    void mainFunctionOpisanie();
 
-    static void structOpisanie();
+    void structOpisanie();
+
+    void expected(TypeLexeme typeLexeme, const string& text) const;
+
+    static void ifOpisanie();
+
+    static void saveOpisanie();
 };
 
 

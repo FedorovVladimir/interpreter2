@@ -1,10 +1,13 @@
-struct name { // структура
+struct name1 {
+}; // структура
+
+struct name2 { // структура
     int a;
     int b;
-    double c = 1.602e-10;
+    double c;
 };
 
-int abc = 100;
+int abc;
 
 void main() {
     name c;
@@ -19,12 +22,10 @@ void main() {
 
     }
 
-    int b = 4;
+    int b;
     if (b < 0) {
 
     } else {
 
     }
-
-    return 0;
 }

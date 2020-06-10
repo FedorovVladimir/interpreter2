@@ -22,19 +22,31 @@ public:
 
     void setCurrentPosition(int position);
 
-    Node *getNextNode();
-
     bool eof();
 
     TypeLexeme getCurrentLexemType();
 
+    int getCurrentLine() const;
+
+    int getCurrentLinePosition() const;
+
 private:
     string text;
-    int currentPosition = 0;
+    int currentPosition;
+    int currentLine;
+    int currentLinePosition;
+    char c;
+    char nc;
 
     void swapGarbageSymbols();
 
     void swapComment();
+
+    void nextPosition();
+
+    void setCurrentLine(int i);
+
+    void setCurrentLinePosition(int i);
 };
 
 

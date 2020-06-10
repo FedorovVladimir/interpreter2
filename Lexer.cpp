@@ -39,17 +39,71 @@ void Lexer::logErr(const string &text) {
 }
 
 void Lexer::variableOpisanie() {
-    logInfo("variableOpisanie");
+    scanner->next(); // type
+    logInfo("Var: " + scanner->getCurrentNode()->toString());
+    expected(ID, "ID");
+    expected(POINT_COMMA, "POINT_COMMA");
 }
 
 void Lexer::mainFunctionOpisanie() {
-    logInfo("mainFunctionOpisanie");
+    scanner->next(); // void
+    expected(MAIN, "MAIN");
+    expected(OPEN_KRUGLAY_SKOBKA, "OPEN_KRUGLAY_SKOBKA");
+    expected(CLOSE_KRUGLAY_SKOBKA, "CLOSE_KRUGLAY_SKOBKA");
+    while (scanner->getCurrentLexemType() == IF ||
+           scanner->getCurrentLexemType() == INT ||
+           scanner->getCurrentLexemType() == DOUBLE ||
+           scanner->getCurrentLexemType() == ID) {
+        if (scanner->getCurrentLexemType() == INT ||
+            scanner->getCurrentLexemType() == DOUBLE) {
+            variableOpisanie();
+        } else if (scanner->getCurrentLexemType() == IF) {
+            ifOpisanie();
+        } else if (scanner->getCurrentLexemType() == ID) {
+            saveOpisanie();
+        }
+    }
+    expected(OPEN_FIGURNAY_SKOBKA, "OPEN_FIGURNAY_SKOBKA");
+    expected(CLOSE_FIGURNAY_SKOBKA, "CLOSE_FIGURNAY_SKOBKA");
+    exit(1);
 }
 
 void Lexer::structOpisanie() {
-    logInfo("structOpisanie");
+    scanner->next(); // struct
+    logInfo("Struct: " + scanner->getCurrentNode()->toString());
+    expected(ID, "ID");
+    expected(OPEN_FIGURNAY_SKOBKA, "OPEN_FIGURNAY_SKOBKA");
+    while (scanner->getCurrentLexemType() == INT ||
+           scanner->getCurrentLexemType() == DOUBLE) {
+        variableOpisanie();
+    }
+    expected(CLOSE_FIGURNAY_SKOBKA, "CLOSE_FIGURNAY_SKOBKA");
+    expected(POINT_COMMA, "POINT_COMMA");
+}
+
+void Lexer::expected(TypeLexeme typeLexeme, const string &text) const {
+    if (scanner->getCurrentLexemType() == typeLexeme) {
+        scanner->next();
+    } else {
+        string err;
+        err.append("expected " + text + " but found ")
+                .append(scanner->getCurrentNode()->toString())
+                .append(". Line: ")
+                .append(to_string(scanner->getCurrentLine()))
+                .append(" Position: ")
+                .append(to_string(scanner->getCurrentLinePosition()));
+        logErr(err);
+    }
 }
 
 void Lexer::logInfo(const string &text) {
     cout << "Info: " << text << "." << endl;
+}
+
+void Lexer::ifOpisanie() {
+    logInfo("ifOpisanie");
+}
+
+void Lexer::saveOpisanie() {
+    logInfo("saveOpisanie");
 }
