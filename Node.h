@@ -23,6 +23,9 @@ public:
     Node *parent = nullptr;
     Node *right = nullptr;
     Node *left = nullptr;
+
+    string getName();
+
 private:
     TypeLexeme typeLexeme;
     string name;

@@ -35,9 +35,7 @@ Scanner::Scanner(string text) {
 }
 
 Node *Scanner::next() {
-    swapGarbageSymbols();
     swapComment();
-    swapGarbageSymbols();
 
     if (currentPosition == text.length()) {
         return new Node(END_OF_FILE);
@@ -200,13 +198,16 @@ void Scanner::swapGarbageSymbols() {
 }
 
 void Scanner::swapComment() {
-    if (c == '/' && nc == '/') {
+    swapGarbageSymbols();
+    while (c == '/' && nc == '/') {
+        swapGarbageSymbols();
         nextPosition();
         nextPosition();
         while (c != '\n') {
             nextPosition();
         }
         nextPosition();
+        swapGarbageSymbols();
     }
 }
 

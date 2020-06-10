@@ -32,7 +32,7 @@ string readCodeFromFile(const string &filePath) {
 
 int main() {
     // читаем файл кода
-    string text = readCodeFromFile("/home/vladimir/CLionProjects/interpreter/code/code.cpp");
+    string text = readCodeFromFile("/home/vladimir/CLionProjects/interpreter/code/code.soda");
 
     // создаем сканер
     auto *scanner = new Scanner(text);

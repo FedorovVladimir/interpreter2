@@ -12,10 +12,12 @@ Lexer::Lexer(Scanner *scanner) {
     addNode(new Node(FUNCTION, "", "scan"));
 }
 
+
 void Lexer::start() {
     while (!scanner->eof()) {
         if (scanner->getCurrentLexemType() == INT ||
-            scanner->getCurrentLexemType() == DOUBLE) {
+            scanner->getCurrentLexemType() == DOUBLE ||
+            isType(scanner->getCurrentNode()->getName())) {
             variableOpisanie();
         } else if (scanner->getCurrentLexemType() == VOID) {
             mainFunctionOpisanie();
@@ -48,14 +50,18 @@ void Lexer::variableOpisanie() {
 void Lexer::mainFunctionOpisanie() {
     scanner->next(); // void
     expected(MAIN, "MAIN");
+    logInfo("MAIN");
     expected(OPEN_KRUGLAY_SKOBKA, "OPEN_KRUGLAY_SKOBKA");
     expected(CLOSE_KRUGLAY_SKOBKA, "CLOSE_KRUGLAY_SKOBKA");
+    expected(OPEN_FIGURNAY_SKOBKA, "OPEN_FIGURNAY_SKOBKA");
     while (scanner->getCurrentLexemType() == IF ||
            scanner->getCurrentLexemType() == INT ||
            scanner->getCurrentLexemType() == DOUBLE ||
-           scanner->getCurrentLexemType() == ID) {
+           scanner->getCurrentLexemType() == ID ||
+           isType(scanner->getCurrentNode()->getName())) {
         if (scanner->getCurrentLexemType() == INT ||
-            scanner->getCurrentLexemType() == DOUBLE) {
+            scanner->getCurrentLexemType() == DOUBLE ||
+            isType(scanner->getCurrentNode()->getName())) {
             variableOpisanie();
         } else if (scanner->getCurrentLexemType() == IF) {
             ifOpisanie();
@@ -63,13 +69,13 @@ void Lexer::mainFunctionOpisanie() {
             saveOpisanie();
         }
     }
-    expected(OPEN_FIGURNAY_SKOBKA, "OPEN_FIGURNAY_SKOBKA");
     expected(CLOSE_FIGURNAY_SKOBKA, "CLOSE_FIGURNAY_SKOBKA");
     exit(1);
 }
 
 void Lexer::structOpisanie() {
     scanner->next(); // struct
+    structures.push_back(scanner->getCurrentNode()->getName());
     logInfo("Struct: " + scanner->getCurrentNode()->toString());
     expected(ID, "ID");
     expected(OPEN_FIGURNAY_SKOBKA, "OPEN_FIGURNAY_SKOBKA");
@@ -101,9 +107,42 @@ void Lexer::logInfo(const string &text) {
 }
 
 void Lexer::ifOpisanie() {
-    logInfo("ifOpisanie");
+    expected(IF, "IF");
+    logInfo("IF");
+    expected(OPEN_KRUGLAY_SKOBKA, "OPEN_KRUGLAY_SKOBKA");
+    expressionOpisanie();
+    expected(CLOSE_KRUGLAY_SKOBKA, "CLOSE_KRUGLAY_SKOBKA");
+    expected(OPEN_FIGURNAY_SKOBKA, "OPEN_FIGURNAY_SKOBKA");
+    expected(CLOSE_FIGURNAY_SKOBKA, "CLOSE_FIGURNAY_SKOBKA");
+    if (scanner->getCurrentLexemType() == ELSE) {
+        expected(ELSE, "ELSE");
+        expected(OPEN_FIGURNAY_SKOBKA, "OPEN_FIGURNAY_SKOBKA");
+        expected(CLOSE_FIGURNAY_SKOBKA, "CLOSE_FIGURNAY_SKOBKA");
+    }
 }
 
 void Lexer::saveOpisanie() {
-    logInfo("saveOpisanie");
+    expected(ID, "ID");
+    expected(SAVE, "SAVE");
+    expressionOpisanie();
+    expected(POINT_COMMA, "POINT_COMMA");
+}
+
+bool Lexer::isType(const string &name) {
+    bool isType = false;
+    for (auto &structure : structures) {
+        if (name == structure) {
+            isType = true;
+        }
+    }
+    return isType;
+}
+
+void Lexer::expressionOpisanie() {
+    if (scanner->getCurrentLexemType() == CONST_DOUBLE || scanner->getCurrentLexemType() == CONST_INT) {
+        scanner->next();
+    } else {
+        logInfo("expressionOpisanie");
+        exit(0);
+    }
 }

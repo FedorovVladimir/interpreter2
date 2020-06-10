@@ -7,23 +7,25 @@ struct name2 { // структура
     double c;
 };
 
+name2 name;
+
 int abc;
 
 void main() {
-    name c;
-    c.a = 1 + 2; // - * / %
-    c.b = 10 >> 2; // <<
-    c.c = 10 > 3; // < >= <= == !=
+    name1 c;
+    //c.a = 1 + 2; // - * / %
+    //c.b = 10 >> 2; // <<
+    //c.c = 10 > 3; // < >= <= == !=
 
-    int a = 1;
+    int a;
     a = 3;
 
-    if (a > 0) {
+    if (1) {
 
     }
 
     int b;
-    if (b < 0) {
+    if (0) {
 
     } else {
 

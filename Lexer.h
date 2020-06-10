@@ -6,6 +6,7 @@
 #define INTERPRETER_LEXER_H
 
 #include <iostream>
+#include <vector>
 #include "Scanner.h"
 
 using namespace std;
@@ -16,10 +17,13 @@ public:
 
     void start();
 
+    bool isType(const string& name);
+
 private:
     Scanner *scanner{};
     Node *root;
     Node *currentNode;
+    vector<string> structures;
 
     void addNode(Node *node);
 
@@ -35,9 +39,11 @@ private:
 
     void expected(TypeLexeme typeLexeme, const string& text) const;
 
-    static void ifOpisanie();
+    void ifOpisanie();
 
-    static void saveOpisanie();
+    void saveOpisanie();
+
+    void expressionOpisanie();
 };
 
 

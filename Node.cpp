@@ -161,3 +161,7 @@ Node::Node(TypeLexeme typeLexeme, const string &text, const string &name) {
         valueDouble = stof(text);
     }
 }
+
+string Node::getName() {
+    return name;
+}
