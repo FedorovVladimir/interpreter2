@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "Scanner.h"
+#include "Lexer.h"
 
 using namespace std;
 
@@ -36,11 +37,9 @@ int main() {
     // создаем сканер
     auto *scanner = new Scanner(text);
 
-    // вывод всех лексем
-    while (scanner->getCurrentNode()->getTypeLexem() != END_OF_FILE) {
-        cout << scanner->getCurrentNode()->toString() << endl;
-        scanner->next();
-    }
+    // создаем лексер
+    auto *lexer = new Lexer(scanner);
+    lexer->start();
 
     return 0;
 }

@@ -195,3 +195,11 @@ void Scanner::swapComment() {
         currentPosition++;
     }
 }
+
+bool Scanner::eof() {
+    return getCurrentLexemType() == END_OF_FILE;
+}
+
+TypeLexeme Scanner::getCurrentLexemType() {
+    return getCurrentNode()->getTypeLexem();
+}

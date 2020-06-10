@@ -24,6 +24,10 @@ public:
 
     Node *getNextNode();
 
+    bool eof();
+
+    TypeLexeme getCurrentLexemType();
+
 private:
     string text;
     int currentPosition = 0;

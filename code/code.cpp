@@ -4,7 +4,9 @@ struct name { // структура
     double c = 1.602e-10;
 };
 
-int main() {
+int abc = 100;
+
+void main() {
     name c;
     c.a = 1 + 2; // - * / %
     c.b = 10 >> 2; // <<

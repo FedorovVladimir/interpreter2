@@ -20,6 +20,9 @@ public:
 
     Node(TypeLexeme typeLexeme, const string &text, const string &name = "");
 
+    Node *parent = nullptr;
+    Node *right = nullptr;
+    Node *left = nullptr;
 private:
     TypeLexeme typeLexeme;
     string name;
