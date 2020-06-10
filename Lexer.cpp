@@ -54,23 +54,8 @@ void Lexer::mainFunctionOpisanie() {
     expected(OPEN_KRUGLAY_SKOBKA, "OPEN_KRUGLAY_SKOBKA");
     expected(CLOSE_KRUGLAY_SKOBKA, "CLOSE_KRUGLAY_SKOBKA");
     expected(OPEN_FIGURNAY_SKOBKA, "OPEN_FIGURNAY_SKOBKA");
-    while (scanner->getCurrentLexemType() == IF ||
-           scanner->getCurrentLexemType() == INT ||
-           scanner->getCurrentLexemType() == DOUBLE ||
-           scanner->getCurrentLexemType() == ID ||
-           isType(scanner->getCurrentNode()->getName())) {
-        if (scanner->getCurrentLexemType() == INT ||
-            scanner->getCurrentLexemType() == DOUBLE ||
-            isType(scanner->getCurrentNode()->getName())) {
-            variableOpisanie();
-        } else if (scanner->getCurrentLexemType() == IF) {
-            ifOpisanie();
-        } else if (scanner->getCurrentLexemType() == ID) {
-            saveOpisanie();
-        }
-    }
+    listOpisanie();
     expected(CLOSE_FIGURNAY_SKOBKA, "CLOSE_FIGURNAY_SKOBKA");
-    exit(1);
 }
 
 void Lexer::structOpisanie() {
@@ -113,10 +98,12 @@ void Lexer::ifOpisanie() {
     expressionOpisanie();
     expected(CLOSE_KRUGLAY_SKOBKA, "CLOSE_KRUGLAY_SKOBKA");
     expected(OPEN_FIGURNAY_SKOBKA, "OPEN_FIGURNAY_SKOBKA");
+    listOpisanie();
     expected(CLOSE_FIGURNAY_SKOBKA, "CLOSE_FIGURNAY_SKOBKA");
     if (scanner->getCurrentLexemType() == ELSE) {
         expected(ELSE, "ELSE");
         expected(OPEN_FIGURNAY_SKOBKA, "OPEN_FIGURNAY_SKOBKA");
+        listOpisanie();
         expected(CLOSE_FIGURNAY_SKOBKA, "CLOSE_FIGURNAY_SKOBKA");
     }
 }
@@ -144,5 +131,23 @@ void Lexer::expressionOpisanie() {
     } else {
         logInfo("expressionOpisanie");
         exit(0);
+    }
+}
+
+void Lexer::listOpisanie() {
+    while (scanner->getCurrentLexemType() == IF ||
+           scanner->getCurrentLexemType() == INT ||
+           scanner->getCurrentLexemType() == DOUBLE ||
+           scanner->getCurrentLexemType() == ID ||
+           isType(scanner->getCurrentNode()->getName())) {
+        if (scanner->getCurrentLexemType() == INT ||
+            scanner->getCurrentLexemType() == DOUBLE ||
+            isType(scanner->getCurrentNode()->getName())) {
+            variableOpisanie();
+        } else if (scanner->getCurrentLexemType() == IF) {
+            ifOpisanie();
+        } else if (scanner->getCurrentLexemType() == ID) {
+            saveOpisanie();
+        }
     }
 }

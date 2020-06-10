@@ -44,6 +44,8 @@ private:
     void saveOpisanie();
 
     void expressionOpisanie();
+
+    void listOpisanie();
 };
 
 

@@ -21,13 +21,13 @@ void main() {
     a = 3;
 
     if (1) {
-
+        a = 4;
     }
 
     int b;
     if (0) {
-
+        a = 4;
     } else {
-
+        a = 5;
     }
 }
