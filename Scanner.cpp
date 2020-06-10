@@ -33,6 +33,7 @@ Scanner::Scanner(string text) {
 Node *Scanner::next() {
     swapGarbageSymbols();
     swapComment();
+    swapGarbageSymbols();
 
     if (currentPosition == text.length()) {
         return new Node(END_OF_FILE);
@@ -199,9 +200,5 @@ void Scanner::swapComment() {
             currentPosition++;
         }
         currentPosition++;
-        while (text[currentPosition] == '\n') {
-            currentPosition++;
-        }
     }
 }
-

@@ -1,13 +1,15 @@
-struct name {
+struct name { // структура
     int a;
     int b;
     double c;
 };
 
 int main() {
-    1 + 2; // - * / %
-    10 >> 2; // <<
-    10 > 3; // < >= <= == !=
+    name c;
+    c.a = 1 + 2; // - * / %
+    c.b = 10 >> 2; // <<
+    c.c = 10 > 3; // < >= <= == !=
+
     int a = 1;
     a = 3;
 
